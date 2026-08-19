@@ -15,18 +15,18 @@
       "group": "Erthlord",
       "role": "Programmer",
       "released": "July 2025",
-      "blurb": "An obby built around one idea. You carry a frisbee and you throw it to solve every level. The frisbee becomes a platform you can stand on, a hook that sticks to vines, and a shield that blocks lava. You get six throws to work with, so each level turns into a small puzzle about aim and timing rather than pure parkour.",
+      "blurb": "An obby built on one mechanic. You throw a frisbee and it becomes whatever the level needs, a platform to stand on, a hook that catches a vine, or a shield that eats lava. Six throws per stage turns every room into a puzzle about aim and timing instead of pure parkour.",
       "work": [
-        "Built the full frisbee throw system, including flight path, collision, and stick behavior",
-        "Wrote the level and checkpoint framework that every stage runs on",
-        "Made the cash reward loop and the frisbee skin unlock shop",
-        "Handled client and server replication so throws feel instant but stay secure"
+        "Wrote the frisbee flight from scratch using raycast sweeps instead of physics parts, so fast throws never tunnel through walls",
+        "Client side prediction with the server holding final say, so the throw feels instant but cannot be faked",
+        "Built a data driven level framework where stages load from config, so new content ships without touching code",
+        "Checkpoint and respawn state that survives a rejoin",
+        "Cash economy and skin shop with every purchase validated on the server"
       ],
       "visits": 160422,
       "favorites": 4850,
       "playing": 0,
-      "maxPlayers": 8,
-      "peakCCU": null
+      "maxPlayers": 8
     },
     {
       "id": 9405843956,
@@ -36,21 +36,21 @@
       "icon": "assets/duel-icon.png",
       "thumb": "assets/duel-thumb.png",
       "group": "Cowboy Simulator",
-      "role": "Programmer",
+      "role": "Programmer and owner",
       "released": "December 2025",
-      "blurb": "A duel and progression game where you shoot to build strength, take on brainrot enemies, and push into new areas. It runs on a full rebirth loop with pets, perks, and boosts, and it ships a new update every week.",
+      "blurb": "A duel and progression game where you shoot to build strength, take on brainrots, and push into new areas. Full rebirth loop with pets, perks, and boosts, shipping a new update every week to a live player base.",
       "work": [
-        "Built the duel and combat system with server side hit checks",
-        "Wrote the strength, rebirth, and perk progression loop",
-        "Made the pet system with collection, equipping, and stat boosts",
-        "Set up saving with retry and session locking so player data does not get lost",
-        "Built the area unlock flow and the weekly update pipeline"
+        "Server authoritative combat with hit validation and rate limits, so damage and rewards cannot be spoofed by an exploiter",
+        "Session locked data saving with retries and rollback protection, so nobody loses an inventory to a crash",
+        "Pet system with equipping, stacking stat modifiers, and caps that keep the economy from breaking",
+        "Rebirth and progression curve tuned around retention rather than raw numbers",
+        "Anti exploit passes over every remote that touches currency or items",
+        "A weekly update pipeline that ships changes to a live game without wiping player data"
       ],
       "visits": 152918,
       "favorites": 7887,
       "playing": 0,
-      "maxPlayers": 20,
-      "peakCCU": null
+      "maxPlayers": 20
     },
     {
       "id": 6507165446,
@@ -60,20 +60,20 @@
       "icon": "assets/cowboy-icon.png",
       "thumb": "assets/cowboy-thumb.png",
       "group": "Cowboy Simulator",
-      "role": "Programmer",
+      "role": "Programmer and owner",
       "released": "September 2024",
-      "blurb": "A wild west simulator built on shooting, dueling, and steady progression. Players train strength, collect pets, rebirth for perks, and unlock new regions of the map. This one came first and the systems in it grew into the later projects.",
+      "blurb": "A wild west simulator built on shooting, dueling, and steady progression. Players train strength, collect pets, rebirth for perks, and unlock new regions. This one came first, and most of the systems in it grew into everything I built after.",
       "work": [
-        "Built the core shooting and strength gain loop",
-        "Wrote the rebirth and perk system",
-        "Made the pet collection and boost system",
-        "Built the region unlock progression and the group reward check"
+        "Built the first version of the core systems that the later games inherited and improved on",
+        "Currency, rebirth, and perk progression written from scratch",
+        "Pet collection with server side ownership checks on every equip",
+        "Region unlocking driven by saved player state, so progress holds across sessions",
+        "Group reward verification through the Roblox API"
       ],
       "visits": 35422,
       "favorites": 1108,
       "playing": 0,
-      "maxPlayers": 10,
-      "peakCCU": null
+      "maxPlayers": 10
     }
   ]
 }

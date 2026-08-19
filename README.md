@@ -30,8 +30,6 @@ Fields that are hand written and never overwritten:
 - `blurb` — the game description
 - `work` — the list of what was built
 - `role`, `group`, `released`
-- `peakCCU` — the public Roblox API does not expose this, so it has to be filled in
-  by hand from the Creator Dashboard. Leave it as `null` to show a dash instead.
 
 ## Running it locally
 

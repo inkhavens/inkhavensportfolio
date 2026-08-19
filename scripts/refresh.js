@@ -31,7 +31,6 @@ async function main() {
     game.playing = live.playing;
     game.maxPlayers = live.maxPlayers;
 
-    // peakCCU is not exposed by the public API, so never overwrite it
     totalVisits += live.visits;
     totalFavorites += live.favoritedCount;
     console.log(`${game.name}: ${live.visits} visits, ${live.playing} playing`);

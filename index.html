@@ -4,15 +4,18 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>inkhavens — Roblox Programmer</title>
-<meta name="description" content="Roblox programmer with over 348,000 visits across owned and developed games. Luau systems work since 2019.">
+<meta name="description" content="Roblox programmer. Seven years of Luau, over 348,000 visits, and four years studying cybersecurity.">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-<header class="nav">
-  <div class="wrap nav-inner">
-    <a class="brand" href="#top">inkhavens</a>
-    <nav class="nav-links">
+<header class="header">
+  <div class="container header__container">
+    <div class="header__box">
+      <span class="header__logo">inkhavens</span>
+      <span class="header__caption">portfolio</span>
+    </div>
+    <nav class="menu">
       <a href="#about">About</a>
       <a href="#games">Games</a>
       <a href="#groups">Groups</a>
@@ -21,101 +24,117 @@
   </div>
 </header>
 
-<main id="top">
+<main>
 
   <!-- ============ HERO ============ -->
   <section class="hero">
-    <div class="wrap">
-      <p class="kicker">Roblox Programmer</p>
-      <h1>I build the systems that make games work.</h1>
-      <p class="lede">
-        Luau developer based in the United States. I have been on Roblox since 2016 and
-        programming since 2019. Every game listed here is one I own or develop.
-      </p>
+    <div class="container">
+      <h1 class="hero__title">inkhavens</h1>
+      <p class="hero__subtitle">Roblox Programmer</p>
 
-      <dl class="stat-row">
-        <div class="stat"><dt>Total visits</dt><dd>348,762</dd></div>
-        <div class="stat"><dt>Favorites</dt><dd>13,845</dd></div>
-        <div class="stat"><dt>Live games</dt><dd>3</dd></div>
-        <div class="stat"><dt>Years coding</dt><dd>7</dd></div>
-      </dl>
+      <div class="panel hero__panel">
+        <p class="panel__caption">Focus</p>
+        <p class="panel__text">
+          Server authority &middot; Anti exploit &middot; Data and saving &middot;
+          Economies and progression &middot; Combat &middot; Optimization
+        </p>
+        <div class="grid-5">
+          <div class="cell"><span class="cell__value">7 yrs</span><span class="cell__label">Writing Luau</span></div>
+          <div class="cell"><span class="cell__value">348,762</span><span class="cell__label">Visits</span></div>
+          <div class="cell"><span class="cell__value">3</span><span class="cell__label">Live games</span></div>
+          <div class="cell"><span class="cell__value">4 yrs</span><span class="cell__label">Cybersecurity</span></div>
+          <div class="cell"><span class="cell__value">Owner</span><span class="cell__label">Cowboy Simulator</span></div>
+        </div>
+      </div>
     </div>
   </section>
 
   <!-- ============ ABOUT ============ -->
   <section id="about" class="section">
-    <div class="wrap">
-      <h2><span class="num">01</span> About me</h2>
+    <div class="container">
+      <h2 class="section__title">About me</h2>
 
-      <div class="about-grid">
-        <div class="prose">
-          <p class="lead">
-            I am a Roblox programmer from the United States and I am 18 years old.
+      <div class="panel profile">
+        <div class="profile__banner">
+          <img src="assets/banner.webp" alt="" onerror="this.style.display='none'">
+        </div>
+
+        <div class="profile__head">
+          <div class="profile__avatar">
+            <img src="assets/pfp.webp" alt="inkhavens profile picture" onerror="this.parentNode.classList.add('is-empty')">
+          </div>
+          <div class="profile__id">
+            <h3>inkhavens</h3>
+            <p class="profile__role">Roblox Programmer &middot; Luau</p>
+          </div>
+        </div>
+
+        <ul class="profile__tags">
+          <li><span class="flag">&#127482;&#127480;</span> United States</li>
+          <li>18 years old</li>
+          <li>Programming since 2019</li>
+          <li>On Roblox since 2016</li>
+        </ul>
+
+        <div class="profile__bio">
+          <p>
+            I am inkhavens. I am 18, I live in the United States, and I have been writing
+            Luau for seven years.
           </p>
           <p>
-            I joined Roblox in 2016. Back then I wanted to be a builder. I spent a long
-            time on it and it never clicked. I was not good at it and I knew that, so in
-            2019 I went looking for another path and found programming instead. That one
-            stuck, and I have been doing it ever since.
+            I got on Roblox in 2016 wanting to be a builder. I was bad at it. Really bad. I
+            kept at it a lot longer than I should have, and around 2019 I finally admitted
+            it was not going to happen and opened a script instead. That one clicked, and I
+            have not stopped since.
           </p>
           <p>
-            Since then I have shipped several games that found real players. Every game on
-            this page is one I own or help develop. I do not count past commission work
-            here, even though that work added a large number of visits that you will not
-            see in my totals. The numbers on this page are only from my own projects.
+            Seven years later I have three live games and around 348,000 visits across them.
+            I own the Cowboy Simulator group and I develop for the Erthlord group. YouTubers
+            with real audiences hand me their projects now, which still feels strange to say
+            out loud.
           </p>
           <p>
-            Along the way I have become someone YouTubers hand their projects to. Creators
-            with real audiences bring me in to program the games they are about to put in
-            front of millions of viewers. That only happens if people trust your work to
-            hold up under pressure, and I have earned that trust more than once.
+            Outside of Roblox I have spent four years studying cybersecurity, and that ended
+            up mattering more than I expected. Once you have spent real time looking at how
+            systems get broken, you stop trusting the client for anything. You start writing
+            servers that treat every incoming request as a lie until it proves otherwise. A
+            lot of Roblox games bleed currency and items because nobody on the team ever
+            thought that way.
           </p>
           <p>
-            None of it came fast. I have put a very large amount of time and effort into
-            this work, and I am still going.
+            One thing I want to be clear about. I do not count commission work in my numbers.
+            I have done plenty of it and it added a lot of visits, but those games belong to
+            other people, so they do not go on my page. What is listed here is what I own or
+            build.
           </p>
         </div>
 
-        <aside class="side">
-          <div class="panel">
-            <h3>At a glance</h3>
-            <dl class="facts">
-              <dt>Based in</dt><dd>United States</dd>
-              <dt>Age</dt><dd>18</dd>
-              <dt>On Roblox since</dt><dd>2016</dd>
-              <dt>Programming since</dt><dd>2019</dd>
-              <dt>Main language</dt><dd>Luau</dd>
-              <dt>Focus</dt><dd>Systems and gameplay</dd>
-            </dl>
-          </div>
-
-          <div class="panel">
-            <h3>What I work on</h3>
-            <ul class="list">
-              <li>Gameplay systems</li>
-              <li>Data saving and session locking</li>
-              <li>Client and server replication</li>
-              <li>Progression and rebirth loops</li>
-              <li>Pet and reward systems</li>
-              <li>Shops and in game economies</li>
-              <li>Combat and server side hit checks</li>
-              <li>Optimization</li>
-            </ul>
-          </div>
-        </aside>
+        <div class="profile__skills">
+          <p class="panel__caption sm">What I work on</p>
+          <ul class="bullets">
+            <li>Server authoritative architecture. The client asks, the server decides, and nothing that matters is left to the player</li>
+            <li>Anti exploit work. Remote validation, rate limiting, and sanity checks on every request that touches money or items</li>
+            <li>Data stores with session locking, retry logic, and rollback safety, so saves survive crashes and rejoins</li>
+            <li>Network optimization. Batched remotes and trimmed replication so a full server still runs clean</li>
+            <li>Module based architecture with real boundaries, so a system built once gets reused across projects</li>
+            <li>Profiling for memory and CPU. Finding what is actually eating frames instead of guessing</li>
+            <li>Full economies. Currency, shops, rebirths, and progression curves tuned around retention</li>
+            <li>Combat systems with server side hit registration and lag compensation</li>
+            <li>Live update pipelines that ship weekly changes without wiping player data</li>
+          </ul>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- ============ GAMES ============ -->
   <section id="games" class="section">
-    <div class="wrap">
-      <h2><span class="num">02</span> Games</h2>
-      <p class="sub">
-        Live projects that I own or develop. Visit and favorite counts come from the
-        Roblox API and update on their own.
+    <div class="container">
+      <h2 class="section__title">Games</h2>
+      <p class="section__sub">
+        Live projects that I own or develop. Visit and favorite counts come from the Roblox
+        API and update on their own.
       </p>
-
       <div id="game-list" class="games"></div>
       <p class="updated" id="updated-line"></p>
     </div>
@@ -123,16 +142,16 @@
 
   <!-- ============ GROUPS ============ -->
   <section id="groups" class="section">
-    <div class="wrap">
-      <h2><span class="num">03</span> Groups</h2>
+    <div class="container">
+      <h2 class="section__title">Groups</h2>
 
       <div class="groups">
         <a class="panel group" href="https://www.roblox.com/communities/34137663/Cowboy-Simulator" target="_blank" rel="noopener">
           <img src="assets/grp-cowboy.png" alt="Cowboy Simulator group icon">
           <div>
             <h3>Cowboy Simulator</h3>
-            <p class="role">Development group</p>
-            <p>The group behind Become a Cowboy and Duel a Brainrot. Both games run under it.</p>
+            <p class="badge">Owner</p>
+            <p>My own group. Become a Cowboy and Duel a Brainrot both run under it.</p>
             <p class="meta">1,153 members</p>
           </div>
         </a>
@@ -141,8 +160,8 @@
           <img src="assets/grp-erthlord.png" alt="Erthlord group icon">
           <div>
             <h3>Erthlord</h3>
-            <p class="role">YouTube channel group</p>
-            <p>A group tied to the Erthlord YouTube channel, which I am a part of. Obby But With A Frisbee runs under it.</p>
+            <p class="badge">Developer</p>
+            <p>The group for the Erthlord YouTube channel. I develop for it, and Obby But With A Frisbee runs under it.</p>
             <p class="meta">6,186 members</p>
           </div>
         </a>
@@ -152,37 +171,30 @@
 
   <!-- ============ CREATOR WORK ============ -->
   <section id="creator" class="section">
-    <div class="wrap">
-      <h2><span class="num">04</span> Creator work</h2>
-      <p class="sub">
-        YouTubers trust me to program their games. When a creator puts a project in front
-        of millions of people, it has to hold up on day one. That is the part I get
-        brought in to handle.
+    <div class="container">
+      <h2 class="section__title">Creator work</h2>
+      <p class="section__sub">
+        YouTubers trust me to program their games. When a creator drops a video, a wave of
+        players hits the game all at once, so the code has to hold on the first day.
       </p>
 
       <div class="panel feature">
-        <a class="feature-media" href="https://www.youtube.com/watch?v=dB6Us5PaWFw" target="_blank" rel="noopener">
+        <a class="feature__media" href="https://www.youtube.com/watch?v=dB6Us5PaWFw" target="_blank" rel="noopener">
           <img src="assets/video-thumb.jpg" alt="Video thumbnail for I Bought A Dead Roblox Game and REVIVED It">
         </a>
-        <div class="feature-body">
-          <p class="role">YouTube video &middot; my role was programmer</p>
+        <div class="feature__body">
+          <p class="badge">My role was programmer</p>
           <h3>I Bought A Dead Roblox Game &amp; REVIVED It</h3>
           <p>
-            A dead Roblox game gets bought and brought back to life. I was the programmer
-            on that project. The video and the channel belong to Erthlord, not to me.
+            A dead Roblox game gets bought and brought back to life. I was the programmer on
+            that project. The video and the channel belong to Erthlord, not to me.
           </p>
-          <p>
-            This is the kind of work creators come to me for. A video like this sends a
-            huge wave of players at a game all at once, so the code has to be ready before
-            the upload goes live. Getting handed that job means the creator is putting
-            their launch in my hands.
-          </p>
-          <dl class="stat-row inner">
-            <div class="stat"><dt>Views</dt><dd>2,334,369</dd></div>
-            <div class="stat"><dt>Likes</dt><dd>42,100</dd></div>
-            <div class="stat"><dt>Published</dt><dd>Aug 2025</dd></div>
-            <div class="stat"><dt>Length</dt><dd>9:51</dd></div>
-          </dl>
+          <div class="grid-4">
+            <div class="cell"><span class="cell__value">2,334,369</span><span class="cell__label">Views</span></div>
+            <div class="cell"><span class="cell__value">42,100</span><span class="cell__label">Likes</span></div>
+            <div class="cell"><span class="cell__value">Aug 2025</span><span class="cell__label">Published</span></div>
+            <div class="cell"><span class="cell__value">9:51</span><span class="cell__label">Length</span></div>
+          </div>
           <p><a class="link" href="https://www.youtube.com/watch?v=dB6Us5PaWFw" target="_blank" rel="noopener">Watch on YouTube &rarr;</a></p>
         </div>
       </div>
@@ -192,16 +204,14 @@
 </main>
 
 <footer class="footer">
-  <div class="wrap footer-inner">
-    <div>
-      <p class="brand">inkhavens</p>
-      <p class="meta">Roblox programmer. Building since 2019.</p>
-    </div>
-    <nav class="foot-links">
+  <div class="container">
+    <p class="footer__title">inkhavens</p>
+    <p class="footer__text">Roblox programmer. Building since 2019.</p>
+    <nav class="footer__links">
       <a href="https://www.roblox.com/games/89264631334016/Obby-But-With-A-Frisbee" target="_blank" rel="noopener">Obby But With A Frisbee</a>
       <a href="https://www.roblox.com/games/129670777283252/Duel-a-Brainrot" target="_blank" rel="noopener">Duel a Brainrot</a>
       <a href="https://www.roblox.com/games/97085651464740/Become-a-Cowboy" target="_blank" rel="noopener">Become a Cowboy</a>
-      <a href="https://www.youtube.com/@Erthlord" target="_blank" rel="noopener">Erthlord on YouTube</a>
+      <a href="https://www.youtube.com/@Erthlord" target="_blank" rel="noopener">Erthlord</a>
     </nav>
   </div>
 </footer>
