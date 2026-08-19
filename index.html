@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>inkhavens — Roblox Programmer</title>
+<meta name="description" content="Roblox programmer with over 348,000 visits across owned and developed games. Systems work in Luau, built since 2019.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<canvas id="bg"></canvas>
+<div class="orb orb-a"></div>
+<div class="orb orb-b"></div>
+<div class="grain"></div>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="#top">
+      <span class="brand-mark"></span>
+      <span class="brand-text">inkhavens</span>
+    </a>
+    <nav class="nav-links">
+      <a href="#about">About</a>
+      <a href="#games">Games</a>
+      <a href="#groups">Groups</a>
+      <a href="#feature">Creator work</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- ============ HERO ============ -->
+  <section class="hero">
+    <div class="wrap">
+      <div class="tag reveal">
+        <span class="dot"></span>
+        Roblox Programmer
+      </div>
+
+      <h1 class="reveal">
+        I build the systems<br>
+        that make games <span class="grad">work</span>.
+      </h1>
+
+      <p class="lede reveal">
+        Luau developer from the United States. I have been on Roblox since 2016 and
+        programming since 2019. Everything below is a game I own or develop.
+      </p>
+
+      <div class="stat-row reveal">
+        <div class="stat">
+          <div class="stat-num" data-count="348762">0</div>
+          <div class="stat-label">Total visits</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num" data-count="13845">0</div>
+          <div class="stat-label">Favorites</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num" data-count="3">0</div>
+          <div class="stat-label">Live games</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num" data-count="7">0</div>
+          <div class="stat-label">Years coding</div>
+        </div>
+      </div>
+
+      <div class="cta-row reveal">
+        <a class="btn btn-primary" href="#games">See the games</a>
+        <a class="btn btn-ghost" href="#about">Read about me</a>
+      </div>
+    </div>
+    <div class="scroll-hint" aria-hidden="true"><span></span></div>
+  </section>
+
+  <!-- ============ ABOUT ============ -->
+  <section id="about" class="section">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="sec-num">01</span>
+        <h2>About me</h2>
+      </div>
+
+      <div class="about-grid">
+        <div class="about-copy reveal">
+          <p class="big">
+            I am a Roblox programmer from the United States and I am 18 years old.
+          </p>
+          <p>
+            I joined Roblox in 2016. Back then I wanted to be a builder. I spent a long
+            time on it and it never clicked. I was not good at it and I knew that, so in
+            2019 I went looking for another path and found programming instead. That one
+            stuck, and I have been doing it ever since.
+          </p>
+          <p>
+            Since then I have shipped several games that found real players. Every game on
+            this page is one I own or help develop. I do not count past commission work
+            here, even though that work added a large number of visits that you will not
+            see in my totals. The numbers on this page are only from my own projects.
+          </p>
+          <p>
+            Along the way I have become someone YouTubers hand their projects to. Creators
+            with real audiences bring me in to program the games they are about to put in
+            front of millions of viewers. That only happens if people trust your work to
+            hold up under pressure, and I have earned that trust more than once.
+          </p>
+          <p>
+            None of it came fast. I have put a very large amount of time and effort into
+            this work, and I am still going.
+          </p>
+        </div>
+
+        <aside class="about-side reveal">
+          <div class="card side-card">
+            <h3>At a glance</h3>
+            <ul class="facts">
+              <li><span>Based in</span><b>United States</b></li>
+              <li><span>Age</span><b>18</b></li>
+              <li><span>On Roblox since</span><b>2016</b></li>
+              <li><span>Programming since</span><b>2019</b></li>
+              <li><span>Main language</span><b>Luau</b></li>
+              <li><span>Role</span><b>Systems and gameplay</b></li>
+            </ul>
+          </div>
+
+          <div class="card side-card">
+            <h3>What I work on</h3>
+            <div class="chips">
+              <span>Gameplay systems</span>
+              <span>Data saving</span>
+              <span>Client and server replication</span>
+              <span>Progression and rebirth loops</span>
+              <span>Pet and reward systems</span>
+              <span>Shops and economies</span>
+              <span>Combat and hit checks</span>
+              <span>Optimization</span>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ GAMES ============ -->
+  <section id="games" class="section">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="sec-num">02</span>
+        <h2>Games</h2>
+      </div>
+      <p class="sec-sub reveal">
+        Live projects that I own or develop. Visit and favorite counts come straight from
+        the Roblox API and refresh on their own.
+      </p>
+
+      <div id="game-list" class="game-list"></div>
+
+      <p class="updated reveal" id="updated-line"></p>
+    </div>
+  </section>
+
+  <!-- ============ GROUPS ============ -->
+  <section id="groups" class="section">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="sec-num">03</span>
+        <h2>Groups</h2>
+      </div>
+
+      <div class="group-grid">
+        <a class="card group-card reveal" href="https://www.roblox.com/communities/34137663/Cowboy-Simulator" target="_blank" rel="noopener">
+          <img src="assets/grp-cowboy.png" alt="Cowboy Simulator group icon" loading="lazy">
+          <div class="group-body">
+            <div class="group-top">
+              <h3>Cowboy Simulator</h3>
+              <span class="pill">Development group</span>
+            </div>
+            <p>The group behind Become a Cowboy and Duel a Brainrot. Both games run under it.</p>
+            <div class="group-meta"><b>1,153</b> members</div>
+          </div>
+          <span class="arrow">&#8599;</span>
+        </a>
+
+        <a class="card group-card reveal" href="https://www.roblox.com/communities/34092292/Erthlord" target="_blank" rel="noopener">
+          <img src="assets/grp-erthlord.png" alt="Erthlord group icon" loading="lazy">
+          <div class="group-body">
+            <div class="group-top">
+              <h3>Erthlord</h3>
+              <span class="pill pill-yt">YouTube channel group</span>
+            </div>
+            <p>A group tied to the Erthlord YouTube channel, which I am a part of. Obby But With A Frisbee runs under it.</p>
+            <div class="group-meta"><b>6,186</b> members</div>
+          </div>
+          <span class="arrow">&#8599;</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FEATURE ============ -->
+  <section id="feature" class="section">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="sec-num">04</span>
+        <h2>Creator work</h2>
+      </div>
+      <p class="sec-sub reveal">
+        YouTubers trust me to program their games. When a creator puts a project in front
+        of millions of people, it has to hold up on day one. That is the part I get
+        brought in to handle.
+      </p>
+
+      <div class="card feature reveal">
+        <a class="feature-media" href="https://www.youtube.com/watch?v=dB6Us5PaWFw" target="_blank" rel="noopener">
+          <img src="assets/video-thumb.jpg" alt="Video thumbnail for I Bought A Dead Roblox Game and REVIVED It" loading="lazy">
+          <span class="play" aria-hidden="true"></span>
+          <span class="dur">9:51</span>
+        </a>
+        <div class="feature-body">
+          <div class="pill-row">
+            <span class="pill pill-yt">YouTube</span>
+            <span class="pill">My role: Programmer</span>
+          </div>
+          <h3>I Bought A Dead Roblox Game &amp; REVIVED It</h3>
+          <p>
+            A dead Roblox game gets bought and brought back to life. I was the programmer
+            on that project. The video and the channel belong to Erthlord, not to me, and
+            it has passed 2.3 million views.
+          </p>
+          <p>
+            This is the kind of work creators come to me for. A video like this sends a
+            huge wave of players at a game all at once, so the code has to be ready before
+            the upload goes live. Getting handed that job means the creator is putting
+            their launch in my hands, and that trust is something I have earned more than
+            once.
+          </p>
+          <div class="vstats">
+            <div class="vstat">
+              <div class="vnum" data-count="2334369">0</div>
+              <div class="vlabel">Views</div>
+            </div>
+            <div class="vstat">
+              <div class="vnum" data-count="42100">0</div>
+              <div class="vlabel">Likes</div>
+            </div>
+            <div class="vstat">
+              <div class="vnum plain">Aug 2025</div>
+              <div class="vlabel">Published</div>
+            </div>
+            <div class="vstat">
+              <div class="vnum plain">9:51</div>
+              <div class="vlabel">Length</div>
+            </div>
+          </div>
+          <a class="btn btn-primary sm" href="https://www.youtube.com/watch?v=dB6Us5PaWFw" target="_blank" rel="noopener">Watch on YouTube</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap footer-inner">
+    <div>
+      <div class="brand">
+        <span class="brand-mark"></span>
+        <span class="brand-text">inkhavens</span>
+      </div>
+      <p class="foot-note">Roblox programmer. Building since 2019.</p>
+    </div>
+    <div class="foot-links">
+      <a href="https://www.roblox.com/games/89264631334016/Obby-But-With-A-Frisbee" target="_blank" rel="noopener">Obby But With A Frisbee</a>
+      <a href="https://www.roblox.com/games/129670777283252/Duel-a-Brainrot" target="_blank" rel="noopener">Duel a Brainrot</a>
+      <a href="https://www.roblox.com/games/97085651464740/Become-a-Cowboy" target="_blank" rel="noopener">Become a Cowboy</a>
+      <a href="https://www.youtube.com/@Erthlord" target="_blank" rel="noopener">Erthlord on YouTube</a>
+    </div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

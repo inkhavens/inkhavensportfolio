@@ -1,0 +1,79 @@
+{
+  "updated": "2026-08-18T00:00:00Z",
+  "totals": {
+    "visits": 348762,
+    "favorites": 13845
+  },
+  "games": [
+    {
+      "id": 8266015615,
+      "placeId": 89264631334016,
+      "name": "Obby But With A Frisbee",
+      "url": "https://www.roblox.com/games/89264631334016/Obby-But-With-A-Frisbee",
+      "icon": "assets/frisbee-icon.png",
+      "thumb": "assets/frisbee-thumb.png",
+      "group": "Erthlord",
+      "role": "Programmer",
+      "released": "July 2025",
+      "blurb": "An obby built around one idea. You carry a frisbee and you throw it to solve every level. The frisbee becomes a platform you can stand on, a hook that sticks to vines, and a shield that blocks lava. You get six throws to work with, so each level turns into a small puzzle about aim and timing rather than pure parkour.",
+      "work": [
+        "Built the full frisbee throw system, including flight path, collision, and stick behavior",
+        "Wrote the level and checkpoint framework that every stage runs on",
+        "Made the cash reward loop and the frisbee skin unlock shop",
+        "Handled client and server replication so throws feel instant but stay secure"
+      ],
+      "visits": 160422,
+      "favorites": 4850,
+      "playing": 0,
+      "maxPlayers": 8,
+      "peakCCU": null
+    },
+    {
+      "id": 9405843956,
+      "placeId": 129670777283252,
+      "name": "Duel a Brainrot",
+      "url": "https://www.roblox.com/games/129670777283252/Duel-a-Brainrot",
+      "icon": "assets/duel-icon.png",
+      "thumb": "assets/duel-thumb.png",
+      "group": "Cowboy Simulator",
+      "role": "Programmer",
+      "released": "December 2025",
+      "blurb": "A duel and progression game where you shoot to build strength, take on brainrot enemies, and push into new areas. It runs on a full rebirth loop with pets, perks, and boosts, and it ships a new update every week.",
+      "work": [
+        "Built the duel and combat system with server side hit checks",
+        "Wrote the strength, rebirth, and perk progression loop",
+        "Made the pet system with collection, equipping, and stat boosts",
+        "Set up saving with retry and session locking so player data does not get lost",
+        "Built the area unlock flow and the weekly update pipeline"
+      ],
+      "visits": 152918,
+      "favorites": 7887,
+      "playing": 0,
+      "maxPlayers": 20,
+      "peakCCU": null
+    },
+    {
+      "id": 6507165446,
+      "placeId": 97085651464740,
+      "name": "Become a Cowboy",
+      "url": "https://www.roblox.com/games/97085651464740/Become-a-Cowboy",
+      "icon": "assets/cowboy-icon.png",
+      "thumb": "assets/cowboy-thumb.png",
+      "group": "Cowboy Simulator",
+      "role": "Programmer",
+      "released": "September 2024",
+      "blurb": "A wild west simulator built on shooting, dueling, and steady progression. Players train strength, collect pets, rebirth for perks, and unlock new regions of the map. This one came first and the systems in it grew into the later projects.",
+      "work": [
+        "Built the core shooting and strength gain loop",
+        "Wrote the rebirth and perk system",
+        "Made the pet collection and boost system",
+        "Built the region unlock progression and the group reward check"
+      ],
+      "visits": 35422,
+      "favorites": 1108,
+      "playing": 0,
+      "maxPlayers": 10,
+      "peakCCU": null
+    }
+  ]
+}
