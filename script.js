@@ -89,6 +89,107 @@ fetch('data/games.json', { cache:'no-store' })
   .then(render)
   .catch(() => render(FALLBACK));
 
+/* ============================================================
+   Work examples and the detail modal
+   ============================================================ */
+let WORK = [];
+
+function workCard(w, i){
+  return '' +
+  '<article class="panel work">' +
+    '<div class="work__media">' +
+      '<img src="' + w.cover + '" alt="' + esc(w.title) + '">' +
+      (w.video ? '<span class="work__flag">Video &middot; ' + esc(w.video.length) + '</span>' : '') +
+    '</div>' +
+    '<div class="work__body">' +
+      '<p class="badge">' + esc(w.tag) + '</p>' +
+      '<h3>' + esc(w.title) + '</h3>' +
+      '<p>' + esc(w.short) + '</p>' +
+      '<button class="btn" type="button" data-work="' + i + '">View more</button>' +
+    '</div>' +
+  '</article>';
+}
+
+function workDetail(w){
+  const video = w.video && w.video.provider === 'vimeo'
+    ? '<div class="modal__video">' +
+        '<iframe src="https://player.vimeo.com/video/' + esc(w.video.id) + '" ' +
+        'title="' + esc(w.title) + ' demo" frameborder="0" ' +
+        'allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>' +
+      '</div>'
+    : '';
+
+  const shots = (w.shots || []).map(s =>
+    '<figure class="shot">' +
+      '<img src="' + s.src + '" alt="' + esc(s.caption) + '" loading="lazy">' +
+      '<figcaption>' + esc(s.caption) + '</figcaption>' +
+    '</figure>').join('');
+
+  const block = (title, arr) => arr && arr.length
+    ? '<div class="modal__block">' +
+        '<p class="modal__caption">' + title + '</p>' +
+        '<ul class="bullets">' + arr.map(x => '<li>' + esc(x) + '</li>').join('') + '</ul>' +
+      '</div>'
+    : '';
+
+  return '' +
+    '<p class="badge">' + esc(w.tag) + '</p>' +
+    '<h3 id="modal-title" class="modal__title">' + esc(w.title) + '</h3>' +
+    video +
+    '<div class="modal__block">' + (w.body || []).map(p => '<p>' + esc(p) + '</p>').join('') + '</div>' +
+    block('What it does', w.features) +
+    block('How it is put together', w.architecture) +
+    (shots ? '<div class="modal__block"><p class="modal__caption">Inside the project</p><div class="shots">' + shots + '</div></div>' : '') +
+    (w.video ? '<p><a class="link" href="' + w.video.url + '" target="_blank" rel="noopener">Open the video on Vimeo &rarr;</a></p>' : '');
+}
+
+const modal     = document.getElementById('modal');
+const modalBody = document.getElementById('modal-body');
+let lastFocused = null;
+
+function openModal(i){
+  const w = WORK[i];
+  if(!w || !modal) return;
+  lastFocused = document.activeElement;
+  modalBody.innerHTML = workDetail(w);
+  modal.hidden = false;
+  document.body.classList.add('is-locked');
+  modal.querySelector('.modal__scroll').scrollTop = 0;
+  const close = modal.querySelector('.modal__close');
+  if(close) close.focus();
+}
+
+function closeModal(){
+  if(!modal || modal.hidden) return;
+  modal.hidden = true;
+  document.body.classList.remove('is-locked');
+  modalBody.innerHTML = '';           // stops the video playing
+  if(lastFocused) lastFocused.focus();
+}
+
+if(modal){
+  modal.addEventListener('click', e => { if(e.target.hasAttribute('data-close')) closeModal(); });
+  document.addEventListener('keydown', e => { if(e.key === 'Escape') closeModal(); });
+}
+
+function renderWork(data){
+  const list = document.getElementById('work-list');
+  if(!list) return;
+  WORK = data.items || [];
+  list.innerHTML = WORK.map(workCard).join('');
+  list.querySelectorAll('[data-work]').forEach(btn => {
+    btn.addEventListener('click', () => openModal(Number(btn.dataset.work)));
+  });
+}
+
+fetch('data/work.json', { cache:'no-store' })
+  .then(r => r.ok ? r.json() : Promise.reject())
+  .then(renderWork)
+  .catch(() => {
+    const list = document.getElementById('work-list');
+    if(list) list.innerHTML = '<p class="section__sub">Work examples could not be loaded.</p>';
+  });
+
 /* ---------- smooth scroll for the header menu ---------- */
 document.querySelectorAll('.menu a[href^="#"]').forEach(link => {
   link.addEventListener('click', e => {

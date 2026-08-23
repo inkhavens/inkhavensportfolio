@@ -1,0 +1,44 @@
+{
+  "items": [
+    {
+      "id": "inventory-system",
+      "title": "Inventory System",
+      "tag": "Roblox UI system",
+      "cover": "assets/inv-2.png",
+      "short": "A full drag and drop inventory with a hotbar, stack splitting, context menus, tooltips, and saving that survives a rejoin.",
+      "video": {
+        "provider": "vimeo",
+        "id": "1220529167",
+        "url": "https://vimeo.com/1220529167",
+        "length": "1:12"
+      },
+      "shots": [
+        { "src": "assets/inv-2.png",  "caption": "Client and server layout. Services on the server, a controller driven GUI on the client." },
+        { "src": "assets/inv-1.webp", "caption": "One dedicated remote per action instead of a single catch all endpoint." }
+      ],
+      "body": [
+        "A complete inventory built from scratch. Items drag between slots, stacks split and merge, the hotbar equips with number keys, and right clicking a slot opens a context menu to use or drop. Everything the player sees reacts instantly, and everything that actually matters is confirmed by the server before it counts.",
+        "The system is split into services rather than one giant script. DataService owns saving, InventoryService owns the rules, and RejoinService handles a player coming back into a live session. The client is broken into its own controllers for the panel, the hotbar, the drag ghost, tooltips, notifications, and the context menu, so no single script owns more than one job.",
+        "Shared code sits in the middle. A typed item database defines every item once, a Signal module carries internal events without leaning on BindableEvents, and a Types module keeps the client and the server agreed on the shape of the data."
+      ],
+      "features": [
+        "Drag and drop between any two slots, with a drag ghost that follows the cursor",
+        "Stack splitting and merging, with the amounts checked on the server",
+        "Hotbar with equip, unequip, and keyboard binds",
+        "Right click context menu for use, drop, and split",
+        "Hover tooltips built straight from the item database",
+        "Notification queue for pickups, drops, and rejected actions",
+        "Sound feedback on every interaction",
+        "Full rejoin support, so a player who leaves mid session comes back to the exact same inventory"
+      ],
+      "architecture": [
+        "Server services: DataService, InventoryService, RejoinService",
+        "Shared modules: ItemDatabase, Signal, Types",
+        "Client controllers: HudController driving InventoryPanel, Hotbar, DragGhost, ContextMenu, Tooltip, and Notifications",
+        "Ten dedicated remotes: RequestInitialData, MoveItem, SplitStack, SortInventory, EquipHotbar, UseItem, DropItem, InventoryUpdated, Notify, RequestRejoin",
+        "One remote per action rather than a single catch all, so every call is validated on its own terms",
+        "The server owns the inventory. The client only ever asks"
+      ]
+    }
+  ]
+}
