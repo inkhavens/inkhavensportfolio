@@ -4,8 +4,8 @@
       "id": "inventory-system",
       "title": "Inventory System",
       "tag": "Roblox UI system",
-      "cover": "assets/inv-2.png",
-      "short": "A full drag and drop inventory with a hotbar, stack splitting, context menus, tooltips, and saving that survives a rejoin.",
+      "cover": "assets/inv-poster.jpg",
+      "short": "A complete inventory built from scratch. A 30 slot grid, two hotbars, live 3D item viewports, per item durability, and saving that brings a worn tool back worn.",
       "video": {
         "provider": "vimeo",
         "id": "1220529167",
@@ -17,26 +17,27 @@
         { "src": "assets/inv-1.webp", "caption": "One dedicated remote per action instead of a single catch all endpoint." }
       ],
       "body": [
-        "A complete inventory built from scratch. Items drag between slots, stacks split and merge, the hotbar equips with number keys, and right clicking a slot opens a context menu to use or drop. Everything the player sees reacts instantly, and everything that actually matters is confirmed by the server before it counts.",
-        "The system is split into services rather than one giant script. DataService owns saving, InventoryService owns the rules, and RejoinService handles a player coming back into a live session. The client is broken into its own controllers for the panel, the hotbar, the drag ghost, tooltips, notifications, and the context menu, so no single script owns more than one job.",
-        "Shared code sits in the middle. A typed item database defines every item once, a Signal module carries internal events without leaning on BindableEvents, and a Types module keeps the client and the server agreed on the shape of the data."
+        "A complete inventory built from scratch. Items drag between a 30 slot grid and a nine slot hotbar, render as live 3D models of the real meshes, and wear down as you use them. Right clicking a slot opens a context menu to use, drop, or inspect. Everything the player sees reacts instantly, and everything that actually matters is confirmed by the server before it counts.",
+        "The system is split into services rather than one giant script. DataService owns saving and loading, InventoryService owns the rules, and RejoinService backs a !rejoin chat command that drops a player straight back into the running server. The client is broken into its own controllers for the panel, both hotbars, the drag ghost, the item viewports, tooltips, notifications, and the context menu, so no single script owns more than one job.",
+        "Shared code sits in the middle. A typed item database defines every tool once, a Signal module carries internal events without leaning on BindableEvents, and a Types module keeps the client and the server agreed on the shape of the data."
       ],
       "features": [
-        "Drag and drop between any two slots, with a drag ghost that follows the cursor",
-        "Stack splitting and merging, with the amounts checked on the server",
-        "Hotbar with equip, unequip, and keyboard binds",
-        "Right click context menu for use, drop, and split",
-        "Hover tooltips built straight from the item database",
-        "Notification queue for pickups, drops, and rejected actions",
-        "Sound feedback on every interaction",
-        "Full rejoin support, so a player who leaves mid session comes back to the exact same inventory"
+        "Drag and drop between any two slots, with a ghost that follows the cursor",
+        "Items move rather than copy, so a tool sent to the hotbar leaves the grid behind",
+        "Two hotbars, one docked in the panel for arranging and one on screen for selecting",
+        "Per item health and durability, tracked on the item itself and drawn as bars",
+        "Live 3D viewports of the real tool meshes, spinning in the grid and flat on the bar",
+        "Equipping puts the actual Tool in the character hands, replacing the default Roblox backpack",
+        "Hover tooltips, search filtering, one click sort, and a notification queue",
+        "Sound and motion feedback on every interaction",
+        "Saves to DataStore, so a worn tool comes back worn and still in its slot"
       ],
       "architecture": [
         "Server services: DataService, InventoryService, RejoinService",
         "Shared modules: ItemDatabase, Signal, Types",
-        "Client controllers: HudController driving InventoryPanel, Hotbar, DragGhost, ContextMenu, Tooltip, and Notifications",
-        "Ten dedicated remotes: RequestInitialData, MoveItem, SplitStack, SortInventory, EquipHotbar, UseItem, DropItem, InventoryUpdated, Notify, RequestRejoin",
-        "One remote per action rather than a single catch all, so every call is validated on its own terms",
+        "Client controllers: HudController driving PanelController, HotbarController, DragController, ItemViewport, ContextMenu, Tooltip, Notifications, Motion, and UiSound",
+        "Nine dedicated remotes rather than one catch all, so every call is validated on its own terms",
+        "Every payload sent as a dense array, because Roblox remotes quietly drop sparse table keys past a gap",
         "The server owns the inventory. The client only ever asks"
       ]
     }

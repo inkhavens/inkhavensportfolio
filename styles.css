@@ -174,10 +174,10 @@ body{
 .work{ overflow:hidden; display:flex; flex-direction:column; transition:border-color .3s, transform .3s; }
 .work:hover{ border-color:#575759; transform:translateY(-3px); }
 .work__media{
-  position:relative; aspect-ratio:16/10; background:#0f1012;
+  position:relative; aspect-ratio:16/9; background:#0f1012;
   border-bottom:1px solid var(--line-2); overflow:hidden;
 }
-.work__media img{ width:100%; height:100%; object-fit:cover; object-position:top left; }
+.work__media img{ width:100%; height:100%; object-fit:cover; object-position:center; }
 .work__flag{
   position:absolute; right:10px; bottom:10px;
   background:rgba(0,0,0,.78); border:1px solid #3a3b3e; border-radius:4px;
