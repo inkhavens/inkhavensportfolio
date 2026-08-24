@@ -1,87 +1,151 @@
 {
-  "items": [
-    {
-      "id": "inventory-system",
-      "title": "Inventory System",
-      "tag": "Roblox UI system",
-      "cover": "assets/inv-poster.jpg",
-      "short": "A complete inventory built from scratch. A 30 slot grid, two hotbars, live 3D item viewports, per item durability, and saving that brings a worn tool back worn.",
-      "video": {
-        "provider": "vimeo",
-        "id": "1220529167",
-        "url": "https://vimeo.com/1220529167",
-        "length": "1:12"
-      },
-      "shots": [
-        { "src": "assets/inv-2.png",  "caption": "Client and server layout. Services on the server, a controller driven GUI on the client." },
-        { "src": "assets/inv-1.webp", "caption": "One dedicated remote per action instead of a single catch all endpoint." }
-      ],
-      "body": [
-        "A complete inventory built from scratch. Items drag between a 30 slot grid and a nine slot hotbar, render as live 3D models of the real meshes, and wear down as you use them. Right clicking a slot opens a context menu to use, drop, or inspect. Everything the player sees reacts instantly, and everything that actually matters is confirmed by the server before it counts.",
-        "The system is split into services rather than one giant script. DataService owns saving and loading, InventoryService owns the rules, and RejoinService backs a !rejoin chat command that drops a player straight back into the running server. The client is broken into its own controllers for the panel, both hotbars, the drag ghost, the item viewports, tooltips, notifications, and the context menu, so no single script owns more than one job.",
-        "Shared code sits in the middle. A typed item database defines every tool once, a Signal module carries internal events without leaning on BindableEvents, and a Types module keeps the client and the server agreed on the shape of the data."
-      ],
-      "features": [
-        "Drag and drop between any two slots, with a ghost that follows the cursor",
-        "Items move rather than copy, so a tool sent to the hotbar leaves the grid behind",
-        "Two hotbars, one docked in the panel for arranging and one on screen for selecting",
-        "Per item health and durability, tracked on the item itself and drawn as bars",
-        "Live 3D viewports of the real tool meshes, spinning in the grid and flat on the bar",
-        "Equipping puts the actual Tool in the character hands, replacing the default Roblox backpack",
-        "Hover tooltips, search filtering, one click sort, and a notification queue",
-        "Sound and motion feedback on every interaction",
-        "Saves to DataStore, so a worn tool comes back worn and still in its slot"
-      ],
-      "architecture": [
-        "Server services: DataService, InventoryService, RejoinService",
-        "Shared modules: ItemDatabase, Signal, Types",
-        "Client controllers: HudController driving PanelController, HotbarController, DragController, ItemViewport, ContextMenu, Tooltip, Notifications, Motion, and UiSound",
-        "Nine dedicated remotes rather than one catch all, so every call is validated on its own terms",
-        "Every payload sent as a dense array, because Roblox remotes quietly drop sparse table keys past a gap",
-        "The server owns the inventory. The client only ever asks"
-      ]
-    },
-    {
-      "id": "gun-system",
-      "title": "Gun System",
-      "tag": "Roblox FPS system",
-      "cover": "assets/gun-poster.jpg",
-      "short": "A first person gun system on its own viewmodel rig. Forced first person, arms that match the avatar, spring recoil, surface sampling impacts, and every shot raycast again on the server.",
-      "video": {
-        "provider": "vimeo",
-        "id": "1220673060",
-        "url": "https://vimeo.com/1220673060",
-        "length": "0:58"
-      },
-      "shots": [
-        { "src": "assets/gun-1.png", "caption": "The shared GunSystem holding four remotes, the config, the effects module, and the viewmodel rig. GunServer sits alone on the server." },
-        { "src": "assets/gun-2.png", "caption": "The Glock with its slide and magazine as separate parts, the HUD, and GunThirdPerson running on every other client." }
-      ],
-      "body": [
-        "A first person gun system built from scratch on its own viewmodel rig rather than a stock Roblox tool. Equipping locks the camera into first person and spawns a set of arms only you can see, animated separately from the character so the slide cycles and the magazine drops on their own timing. The client raycasts the instant you click so the shot feels immediate, and the server raycasts again before any of it counts.",
-        "The system is split by ownership rather than crammed into one script. GunServer holds the magazine, the reserve, the fire rate, and all damage, and hands the tool out on spawn. GunClient lives inside the tool and owns everything the player feels, the viewmodel, the animations, the camera recoil, and the input. GunThirdPerson runs on every other client and draws what everyone else sees, so a shot never renders twice for the person who fired it.",
-        "Shared code sits in the middle. GunConfig holds every number in one place, from fire rate and spread to recoil and particle counts, so tuning never means opening a script. GunEffects owns muzzle flash, shell ejection, bullet holes, and impact particles, and the shooter and the spectators call the same functions. Ammo rides on player attributes instead of a remote, so the HUD updates itself without anything having to ask."
-      ],
-      "features": [
-        "Forced first person on equip, released the moment the gun is put away",
-        "Viewmodel arms that copy the skin tone and clothing of the avatar, so the hands on screen match the character",
-        "Four animations driven on the gun itself, equip, idle, reload, and fire, with the slide and magazine rigged as their own bones",
-        "Reload length read from the audio file at runtime and the animation speed scaled to match, so the two never drift apart",
-        "Camera recoil that kicks and settles on a spring, with a spread cone that widens per shot and decays back down",
-        "Impact particles that sample the colour of whatever surface they hit, switching to blood on anything with a humanoid",
-        "Ejected brass that bounces and despawns, and bullet holes that skip characters entirely",
-        "Dry fire click on an empty magazine, and a reload that cancels cleanly if the gun is put away part way through",
-        "Ammo counter and crosshair that show themselves only while the gun is out"
-      ],
-      "architecture": [
-        "Server: GunServer owns ammo, fire rate, and damage, and re-raycasts every shot rather than trusting the one it was handed",
-        "Shared: GunConfig for tuning, GunEffects for anything visual, and a viewmodel rig stored ready to clone",
-        "Client: GunClient inside the tool for the holder, GunThirdPerson for everyone else, and a HUD script that reveals itself only when armed",
-        "Four dedicated remotes rather than one catch all, so equipping, reloading, and firing are each validated on their own terms",
-        "The viewmodel is parented to the camera, so it renders for the holder and never replicates to anybody else",
-        "It sits in its own collision group, because the Humanoid it needs in order to wear clothing forces its torso to collide and would otherwise shove the player around",
-        "Shots are thrown out if they start more than fourteen studs from the character, or arrive faster than the fire rate allows"
-      ]
-    }
-  ]
+    "items":  [
+                  {
+                      "id":  "inventory-system",
+                      "title":  "Inventory System",
+                      "tag":  "Roblox UI system",
+                      "cover":  "assets/inv-poster.jpg",
+                      "short":  "A complete inventory built from scratch. A 30 slot grid, two hotbars, live 3D item viewports, per item durability, and saving that brings a worn tool back worn.",
+                      "video":  {
+                                    "provider":  "vimeo",
+                                    "id":  "1220529167",
+                                    "url":  "https://vimeo.com/1220529167",
+                                    "length":  "1:12"
+                                },
+                      "shots":  [
+                                    {
+                                        "src":  "assets/inv-2.png",
+                                        "caption":  "Client and server layout. Services on the server, a controller driven GUI on the client."
+                                    },
+                                    {
+                                        "src":  "assets/inv-1.webp",
+                                        "caption":  "One dedicated remote per action instead of a single catch all endpoint."
+                                    }
+                                ],
+                      "body":  [
+                                   "A complete inventory built from scratch. Items drag between a 30 slot grid and a nine slot hotbar, render as live 3D models of the real meshes, and wear down as you use them. Right clicking a slot opens a context menu to use, drop, or inspect. Everything the player sees reacts instantly, and everything that actually matters is confirmed by the server before it counts.",
+                                   "The system is split into services rather than one giant script. DataService owns saving and loading, InventoryService owns the rules, and RejoinService backs a !rejoin chat command that drops a player straight back into the running server. The client is broken into its own controllers for the panel, both hotbars, the drag ghost, the item viewports, tooltips, notifications, and the context menu, so no single script owns more than one job.",
+                                   "Shared code sits in the middle. A typed item database defines every tool once, a Signal module carries internal events without leaning on BindableEvents, and a Types module keeps the client and the server agreed on the shape of the data."
+                               ],
+                      "features":  [
+                                       "Drag and drop between any two slots, with a ghost that follows the cursor",
+                                       "Items move rather than copy, so a tool sent to the hotbar leaves the grid behind",
+                                       "Two hotbars, one docked in the panel for arranging and one on screen for selecting",
+                                       "Per item health and durability, tracked on the item itself and drawn as bars",
+                                       "Live 3D viewports of the real tool meshes, spinning in the grid and flat on the bar",
+                                       "Equipping puts the actual Tool in the character hands, replacing the default Roblox backpack",
+                                       "Hover tooltips, search filtering, one click sort, and a notification queue",
+                                       "Sound and motion feedback on every interaction",
+                                       "Saves to DataStore, so a worn tool comes back worn and still in its slot"
+                                   ],
+                      "architecture":  [
+                                           "Server services: DataService, InventoryService, RejoinService",
+                                           "Shared modules: ItemDatabase, Signal, Types",
+                                           "Client controllers: HudController driving PanelController, HotbarController, DragController, ItemViewport, ContextMenu, Tooltip, Notifications, Motion, and UiSound",
+                                           "Nine dedicated remotes rather than one catch all, so every call is validated on its own terms",
+                                           "Every payload sent as a dense array, because Roblox remotes quietly drop sparse table keys past a gap",
+                                           "The server owns the inventory. The client only ever asks"
+                                       ]
+                  },
+                  {
+                      "id":  "gun-system",
+                      "title":  "Gun System",
+                      "tag":  "Roblox FPS system",
+                      "cover":  "assets/gun-poster.jpg",
+                      "short":  "A first person gun system on its own viewmodel rig. Forced first person, arms that match the avatar, spring recoil, surface sampling impacts, and every shot raycast again on the server.",
+                      "video":  {
+                                    "provider":  "vimeo",
+                                    "id":  "1220673060",
+                                    "url":  "https://vimeo.com/1220673060",
+                                    "length":  "0:58"
+                                },
+                      "shots":  [
+                                    {
+                                        "src":  "assets/gun-1.png",
+                                        "caption":  "The shared GunSystem holding four remotes, the config, the effects module, and the viewmodel rig. GunServer sits alone on the server."
+                                    },
+                                    {
+                                        "src":  "assets/gun-2.png",
+                                        "caption":  "The Glock with its slide and magazine as separate parts, the HUD, and GunThirdPerson running on every other client."
+                                    }
+                                ],
+                      "body":  [
+                                   "A first person gun system built from scratch on its own viewmodel rig rather than a stock Roblox tool. Equipping locks the camera into first person and spawns a set of arms only you can see, animated separately from the character so the slide cycles and the magazine drops on their own timing. The client raycasts the instant you click so the shot feels immediate, and the server raycasts again before any of it counts.",
+                                   "The system is split by ownership rather than crammed into one script. GunServer holds the magazine, the reserve, the fire rate, and all damage, and hands the tool out on spawn. GunClient lives inside the tool and owns everything the player feels, the viewmodel, the animations, the camera recoil, and the input. GunThirdPerson runs on every other client and draws what everyone else sees, so a shot never renders twice for the person who fired it.",
+                                   "Shared code sits in the middle. GunConfig holds every number in one place, from fire rate and spread to recoil and particle counts, so tuning never means opening a script. GunEffects owns muzzle flash, shell ejection, bullet holes, and impact particles, and the shooter and the spectators call the same functions. Ammo rides on player attributes instead of a remote, so the HUD updates itself without anything having to ask."
+                               ],
+                      "features":  [
+                                       "Forced first person on equip, released the moment the gun is put away",
+                                       "Viewmodel arms that copy the skin tone and clothing of the avatar, so the hands on screen match the character",
+                                       "Four animations driven on the gun itself, equip, idle, reload, and fire, with the slide and magazine rigged as their own bones",
+                                       "Reload length read from the audio file at runtime and the animation speed scaled to match, so the two never drift apart",
+                                       "Camera recoil that kicks and settles on a spring, with a spread cone that widens per shot and decays back down",
+                                       "Impact particles that sample the colour of whatever surface they hit, switching to blood on anything with a humanoid",
+                                       "Ejected brass that bounces and despawns, and bullet holes that skip characters entirely",
+                                       "Dry fire click on an empty magazine, and a reload that cancels cleanly if the gun is put away part way through",
+                                       "Ammo counter and crosshair that show themselves only while the gun is out"
+                                   ],
+                      "architecture":  [
+                                           "Server: GunServer owns ammo, fire rate, and damage, and re-raycasts every shot rather than trusting the one it was handed",
+                                           "Shared: GunConfig for tuning, GunEffects for anything visual, and a viewmodel rig stored ready to clone",
+                                           "Client: GunClient inside the tool for the holder, GunThirdPerson for everyone else, and a HUD script that reveals itself only when armed",
+                                           "Four dedicated remotes rather than one catch all, so equipping, reloading, and firing are each validated on their own terms",
+                                           "The viewmodel is parented to the camera, so it renders for the holder and never replicates to anybody else",
+                                           "It sits in its own collision group, because the Humanoid it needs in order to wear clothing forces its torso to collide and would otherwise shove the player around",
+                                           "Shots are thrown out if they start more than fourteen studs from the character, or arrive faster than the fire rate allows"
+                                       ],
+                      "code":  {
+                                   "filename":  "GunConfig.lua",
+                                   "caption":  "Every number the gun runs on, in one file. Tuning never means opening a script.",
+                                   "lines":  [
+                                                 "local Config = {}",
+                                                 "",
+                                                 "Config.MagSize = 17",
+                                                 "Config.Reserve = 30",
+                                                 "Config.Damage = 25",
+                                                 "Config.HeadMultiplier = 2",
+                                                 "Config.Range = 1000",
+                                                 "Config.FireDelay = 60 / 450 -- 450 rpm ceiling, semi auto still needs a floor between clicks",
+                                                 "Config.Spread = 0.4 -- degrees of cone at rest",
+                                                 "Config.SpreadPerShot = 0.5 -- added per shot, decays back to Config.Spread",
+                                                 "Config.SpreadMax = 3",
+                                                 "",
+                                                 "Config.ReloadTimeFallback = 2.2 -- only used if the reload sound never reports a length",
+                                                 "",
+                                                 "Config.Animations = {",
+                                                 "  Equip = 104102676346120,",
+                                                 "  Reload = 115978349485026,",
+                                                 "  Idle = 139147418311177,",
+                                                 "  Fire = 79352931485880,",
+                                                 "}",
+                                                 "",
+                                                 "Config.Sounds = {",
+                                                 "  Equip = 137595180744957,",
+                                                 "  Reload = 5445945972,",
+                                                 "  Fire = 73555825432963,",
+                                                 "  Empty = 115139769060822, -- dry fire click",
+                                                 "}",
+                                                 "",
+                                                 "-- the rig\u0027s head sits 1.5 studs above its root, so dropping the root by that much puts the head",
+                                                 "-- exactly on the camera. it is raised a little off that to lift the gun out of the bottom edge.",
+                                                 "-- this is the knob to turn if the gun sits too high or low on screen",
+                                                 "Config.ViewmodelOffset = CFrame.new(0, -1.1, -0.15)",
+                                                 "",
+                                                 "Config.Recoil = {",
+                                                 "  Pitch = 0.32, -- degrees of upward kick per shot",
+                                                 "  Yaw = 0.1, -- degrees of sideways kick per shot, sign is random",
+                                                 "  Speed = 26, -- how fast the kick lands",
+                                                 "  Return = 11, -- how fast it settles back to centre",
+                                                 "}",
+                                                 "",
+                                                 "Config.BloodColor = Color3.fromRGB(125, 10, 10)",
+                                                 "Config.ResidueCount = 14 -- particles per surface hit",
+                                                 "Config.BloodCount = 22",
+                                                 "",
+                                                 "return Config",
+                                                 ""
+                                             ]
+                               }
+                  }
+              ]
 }

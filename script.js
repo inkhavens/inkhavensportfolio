@@ -110,6 +110,37 @@ function workCard(w, i){
   '</article>';
 }
 
+/* Minimal Lua highlighter. Single pass so nothing gets escaped twice.
+   Kept local on purpose, no external library and no link back to a source. */
+function highlightLua(src){
+  const re = /(--\[\[[\s\S]*?\]\]|--[^\n]*)|("(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*')|(\b\d+(?:\.\d+)?\b)|(\b(?:local|function|return|end|if|then|else|elseif|for|while|do|in|not|and|or|true|false|nil)\b)/g;
+  let out = '', last = 0, m;
+  while((m = re.exec(src)) !== null){
+    if(m.index > last) out += esc(src.slice(last, m.index));
+    if(m[1])      out += '<span class="c-com">' + esc(m[1]) + '</span>';
+    else if(m[2]) out += '<span class="c-str">' + esc(m[2]) + '</span>';
+    else if(m[3]) out += '<span class="c-num">' + esc(m[3]) + '</span>';
+    else if(m[4]) out += '<span class="c-kw">'  + esc(m[4]) + '</span>';
+    last = re.lastIndex;
+  }
+  return out + esc(src.slice(last));
+}
+
+function codeBlock(code){
+  if(!code || !code.lines) return '';
+  const src  = code.lines.join('\n');
+  const nums = code.lines.map((_, i) => i + 1).join('\n');
+  return '' +
+    '<div class="modal__block">' +
+      '<p class="modal__caption">' + esc(code.filename) + '</p>' +
+      (code.caption ? '<p class="code__note">' + esc(code.caption) + '</p>' : '') +
+      '<div class="code" data-noselect>' +
+        '<pre class="code__nums" aria-hidden="true">' + nums + '</pre>' +
+        '<pre class="code__src"><code>' + highlightLua(src) + '</code></pre>' +
+      '</div>' +
+    '</div>';
+}
+
 function workDetail(w){
   const video = w.video && w.video.provider === 'vimeo'
     ? '<div class="modal__video">' +
@@ -139,6 +170,7 @@ function workDetail(w){
     '<div class="modal__block">' + (w.body || []).map(p => '<p>' + esc(p) + '</p>').join('') + '</div>' +
     block('What it does', w.features) +
     block('How it is put together', w.architecture) +
+    codeBlock(w.code) +
     (shots ? '<div class="modal__block"><p class="modal__caption">Inside the project</p><div class="shots">' + shots + '</div></div>' : '') +
     (w.video ? '<p><a class="link" href="' + w.video.url + '" target="_blank" rel="noopener">Open the video on Vimeo &rarr;</a></p>' : '');
 }
@@ -170,6 +202,14 @@ function closeModal(){
 if(modal){
   modal.addEventListener('click', e => { if(e.target.hasAttribute('data-close')) closeModal(); });
   document.addEventListener('keydown', e => { if(e.key === 'Escape') closeModal(); });
+
+  /* Friction against casual copying of the code block. This is not real
+     protection, since anything rendered is readable from the page source. */
+  const guard = e => { if(e.target.closest && e.target.closest('[data-noselect]')) e.preventDefault(); };
+  modal.addEventListener('copy', guard);
+  modal.addEventListener('cut', guard);
+  modal.addEventListener('contextmenu', guard);
+  modal.addEventListener('dragstart', guard);
 }
 
 function renderWork(data){
