@@ -121,7 +121,7 @@ function workDetail(w){
 
   const shots = (w.shots || []).map(s =>
     '<figure class="shot">' +
-      '<img src="' + s.src + '" alt="' + esc(s.caption) + '" loading="lazy">' +
+      '<img src="' + s.src + '" alt="' + esc(s.caption) + '">' +
       '<figcaption>' + esc(s.caption) + '</figcaption>' +
     '</figure>').join('');
 
