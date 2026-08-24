@@ -229,10 +229,10 @@ body.is-locked{ overflow:hidden; }
 /* code block */
 .code__note{ font-size:13.5px; color:var(--muted); margin-bottom:12px !important; }
 .code{
-  display:flex; align-items:stretch;
+  display:flex; align-items:flex-start;
   border:1px solid var(--line-2); border-radius:6px;
-  background:#0a0b0d; overflow:hidden;
-  max-height:440px; overflow-y:auto;
+  background:#0a0b0d;
+  max-height:440px; overflow:auto;   /* one scroller for both axes */
 }
 .code[data-noselect]{
   user-select:none; -webkit-user-select:none; -ms-user-select:none;
@@ -246,8 +246,9 @@ body.is-locked{ overflow:hidden; }
   padding:14px 10px 14px 14px; text-align:right; color:#4a4b4e;
   background:#08090b; border-right:1px solid var(--line-2);
   flex:0 0 auto; user-select:none;
+  position:sticky; left:0; z-index:1;  /* stays put while scrolling sideways */
 }
-.code__src{ padding:14px 16px; overflow-x:auto; flex:1 1 auto; color:#d6d8dd; }
+.code__src{ padding:14px 16px; flex:0 0 auto; color:#d6d8dd; }
 .code__src code{ font:inherit; }
 .c-com{ color:#6f7480; font-style:italic; }
 .c-str{ color:#b6d18a; }
