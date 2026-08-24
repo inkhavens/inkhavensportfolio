@@ -40,6 +40,48 @@
         "Every payload sent as a dense array, because Roblox remotes quietly drop sparse table keys past a gap",
         "The server owns the inventory. The client only ever asks"
       ]
+    },
+    {
+      "id": "gun-system",
+      "title": "Gun System",
+      "tag": "Roblox FPS system",
+      "cover": "assets/gun-poster.jpg",
+      "short": "A first person gun system on its own viewmodel rig. Forced first person, arms that match the avatar, spring recoil, surface sampling impacts, and every shot raycast again on the server.",
+      "video": {
+        "provider": "vimeo",
+        "id": "1220673060",
+        "url": "https://vimeo.com/1220673060",
+        "length": "0:58"
+      },
+      "shots": [
+        { "src": "assets/gun-1.png", "caption": "The shared GunSystem holding four remotes, the config, the effects module, and the viewmodel rig. GunServer sits alone on the server." },
+        { "src": "assets/gun-2.png", "caption": "The Glock with its slide and magazine as separate parts, the HUD, and GunThirdPerson running on every other client." }
+      ],
+      "body": [
+        "A first person gun system built from scratch on its own viewmodel rig rather than a stock Roblox tool. Equipping locks the camera into first person and spawns a set of arms only you can see, animated separately from the character so the slide cycles and the magazine drops on their own timing. The client raycasts the instant you click so the shot feels immediate, and the server raycasts again before any of it counts.",
+        "The system is split by ownership rather than crammed into one script. GunServer holds the magazine, the reserve, the fire rate, and all damage, and hands the tool out on spawn. GunClient lives inside the tool and owns everything the player feels, the viewmodel, the animations, the camera recoil, and the input. GunThirdPerson runs on every other client and draws what everyone else sees, so a shot never renders twice for the person who fired it.",
+        "Shared code sits in the middle. GunConfig holds every number in one place, from fire rate and spread to recoil and particle counts, so tuning never means opening a script. GunEffects owns muzzle flash, shell ejection, bullet holes, and impact particles, and the shooter and the spectators call the same functions. Ammo rides on player attributes instead of a remote, so the HUD updates itself without anything having to ask."
+      ],
+      "features": [
+        "Forced first person on equip, released the moment the gun is put away",
+        "Viewmodel arms that copy the skin tone and clothing of the avatar, so the hands on screen match the character",
+        "Four animations driven on the gun itself, equip, idle, reload, and fire, with the slide and magazine rigged as their own bones",
+        "Reload length read from the audio file at runtime and the animation speed scaled to match, so the two never drift apart",
+        "Camera recoil that kicks and settles on a spring, with a spread cone that widens per shot and decays back down",
+        "Impact particles that sample the colour of whatever surface they hit, switching to blood on anything with a humanoid",
+        "Ejected brass that bounces and despawns, and bullet holes that skip characters entirely",
+        "Dry fire click on an empty magazine, and a reload that cancels cleanly if the gun is put away part way through",
+        "Ammo counter and crosshair that show themselves only while the gun is out"
+      ],
+      "architecture": [
+        "Server: GunServer owns ammo, fire rate, and damage, and re-raycasts every shot rather than trusting the one it was handed",
+        "Shared: GunConfig for tuning, GunEffects for anything visual, and a viewmodel rig stored ready to clone",
+        "Client: GunClient inside the tool for the holder, GunThirdPerson for everyone else, and a HUD script that reveals itself only when armed",
+        "Four dedicated remotes rather than one catch all, so equipping, reloading, and firing are each validated on their own terms",
+        "The viewmodel is parented to the camera, so it renders for the holder and never replicates to anybody else",
+        "It sits in its own collision group, because the Humanoid it needs in order to wear clothing forces its torso to collide and would otherwise shove the player around",
+        "Shots are thrown out if they start more than fourteen studs from the character, or arrive faster than the fire rate allows"
+      ]
     }
   ]
 }
