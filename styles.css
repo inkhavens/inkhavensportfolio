@@ -286,6 +286,12 @@ body.is-locked{ overflow:hidden; }
 .footer{ background:#000; border-top:1px solid var(--line-2); padding:34px 0 52px; text-align:center; }
 .footer__title{ font-weight:bold; font-size:1.5rem; margin-bottom:8px; }
 .footer__text{ font-family:Consolas,"Courier New",monospace; font-size:14px; color:var(--muted); margin-bottom:20px; }
+.footer__count{
+  font-size:13.5px; color:var(--muted); margin-bottom:20px;
+  font-variant-numeric:tabular-nums;
+}
+.footer__count b{ color:var(--text); font-weight:bold; }
+.footer__count[hidden]{ display:none; }
 .footer__links{ display:flex; justify-content:center; flex-wrap:wrap; gap:8px 22px; }
 .footer__links a{ font-size:13.5px; color:var(--muted); }
 .footer__links a:hover{ color:var(--text); }

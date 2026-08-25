@@ -230,6 +230,21 @@ fetch('data/work.json', { cache:'no-store' })
     if(list) list.innerHTML = '<p class="section__sub">Work examples could not be loaded.</p>';
   });
 
+/* ============================================================
+   Site visitor count
+   Stays hidden if the request fails, so a blocked tracker never
+   leaves a broken line in the footer.
+   ============================================================ */
+fetch('https://inkhavens.goatcounter.com/counter/TOTAL.json')
+  .then(r => r.ok ? r.json() : Promise.reject())
+  .then(d => {
+    const el = document.getElementById('site-count');
+    if(!el || !d || !d.count) return;
+    el.innerHTML = '<b>' + esc(d.count) + '</b> people have viewed this portfolio!';
+    el.hidden = false;
+  })
+  .catch(() => {});
+
 /* ---------- smooth scroll for the header menu ---------- */
 document.querySelectorAll('.menu a[href^="#"]').forEach(link => {
   link.addEventListener('click', e => {
