@@ -240,7 +240,14 @@ fetch('https://inkhavens.goatcounter.com/counter/TOTAL.json')
   .then(d => {
     const el = document.getElementById('site-count');
     if(!el || !d || !d.count) return;
-    el.innerHTML = '<b>' + esc(d.count) + '</b> people have viewed this portfolio!';
+
+    // count arrives as a formatted string, e.g. "1,234"
+    const n = parseInt(String(d.count).replace(/[^0-9]/g, ''), 10);
+    if(!n) return;                       // nothing worth showing at zero
+
+    el.innerHTML = n === 1
+      ? '<b>1</b> person has viewed this portfolio!'
+      : '<b>' + esc(d.count) + '</b> people have viewed this portfolio!';
     el.hidden = false;
   })
   .catch(() => {});
