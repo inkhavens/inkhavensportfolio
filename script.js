@@ -113,7 +113,7 @@ function workCard(w, i){
 /* Minimal Lua highlighter. Single pass so nothing gets escaped twice.
    Kept local on purpose, no external library and no link back to a source. */
 function highlightLua(src){
-  const re = /(--\[\[[\s\S]*?\]\]|--[^\n]*)|("(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*')|(\b\d+(?:\.\d+)?\b)|(\b(?:local|function|return|end|if|then|else|elseif|for|while|do|in|not|and|or|true|false|nil)\b)/g;
+  const re = /(--\[\[[\s\S]*?\]\]|--[^\n]*)|("(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*')|(\b\d+(?:\.\d+)?\b)|(\b(?:local|function|return|end|if|then|else|elseif|for|while|do|in|not|and|or|true|false|nil|export|type|continue)\b)/g;
   let out = '', last = 0, m;
   while((m = re.exec(src)) !== null){
     if(m.index > last) out += esc(src.slice(last, m.index));

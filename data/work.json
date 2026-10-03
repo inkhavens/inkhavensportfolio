@@ -12,16 +12,6 @@
                                     "url":  "https://vimeo.com/1220529167",
                                     "length":  "1:12"
                                 },
-                      "shots":  [
-                                    {
-                                        "src":  "assets/inv-2.png",
-                                        "caption":  "Client and server layout. Services on the server, a controller driven GUI on the client."
-                                    },
-                                    {
-                                        "src":  "assets/inv-1.webp",
-                                        "caption":  "One dedicated remote per action instead of a single catch all endpoint."
-                                    }
-                                ],
                       "body":  [
                                    "A complete inventory built from scratch. Items drag between a 30 slot grid and a nine slot hotbar, render as live 3D models of the real meshes, and wear down as you use them. Right clicking a slot opens a context menu to use, drop, or inspect. Everything the player sees reacts instantly, and everything that actually matters is confirmed by the server before it counts.",
                                    "The system is split into services rather than one giant script. DataService owns saving and loading, InventoryService owns the rules, and RejoinService backs a !rejoin chat command that drops a player straight back into the running server. The client is broken into its own controllers for the panel, both hotbars, the drag ghost, the item viewports, tooltips, notifications, and the context menu, so no single script owns more than one job.",
@@ -59,16 +49,6 @@
                                     "url":  "https://vimeo.com/1220673060",
                                     "length":  "0:58"
                                 },
-                      "shots":  [
-                                    {
-                                        "src":  "assets/gun-1.png",
-                                        "caption":  "The shared GunSystem holding four remotes, the config, the effects module, and the viewmodel rig. GunServer sits alone on the server."
-                                    },
-                                    {
-                                        "src":  "assets/gun-2.png",
-                                        "caption":  "The Glock with its slide and magazine as separate parts, the HUD, and GunThirdPerson running on every other client."
-                                    }
-                                ],
                       "body":  [
                                    "A first person gun system built from scratch on its own viewmodel rig rather than a stock Roblox tool. Equipping locks the camera into first person and spawns a set of arms only you can see, animated separately from the character so the slide cycles and the magazine drops on their own timing. The client raycasts the instant you click so the shot feels immediate, and the server raycasts again before any of it counts.",
                                    "The system is split by ownership rather than crammed into one script. GunServer holds the magazine, the reserve, the fire rate, and all damage, and hands the tool out on spawn. GunClient lives inside the tool and owns everything the player feels, the viewmodel, the animations, the camera recoil, and the input. GunThirdPerson runs on every other client and draws what everyone else sees, so a shot never renders twice for the person who fired it.",
@@ -144,6 +124,152 @@
                                                  "",
                                                  "return Config",
                                                  ""
+                                             ]
+                               }
+                  },
+                  {
+                      "id":  "crate-system",
+                      "title":  "Crate Opening System",
+                      "tag":  "Roblox game system",
+                      "cover":  "assets/crate-poster.jpg",
+                      "short":  "A crate opening system that plays as a full cinematic rather than a menu popup. Three crates, spring driven camera work, a scrolling knife strip, and a server that picks the result before the animation ever starts.",
+                      "video":  {
+                                    "provider":  "vimeo",
+                                    "id":  "1232545246",
+                                    "url":  "https://vimeo.com/1232545246",
+                                    "length":  "2:25"
+                                },
+                      "body":  [
+                                   "A crate opening system where each crate sits on a stand in the world and opens with a full cinematic instead of a menu popup. You walk up, hold E, and the camera moves in on the crate while a panel slides out with the drop table. When you open it, the crate lifts, spins up, slams back down and throws its lid open. Then a strip of knives scrolls across the screen and lands on what you won. The server picks the knife before any of that starts, so the animation only ever shows a result that already exists.",
+                                   "The code is split by who owns what. CrateService takes the request, checks distance, cooldown and balance, then charges the player, rolls and saves. DataService handles profiles with session locking, so two servers never write the same save. On the client, OpeningController runs the sequence in five acts and hands pieces off to smaller parts. CrateRig moves the crate and swings the lid on its hinge, Spinner builds and runs the strip, and RevealStage puts the knife on show.",
+                                   "The odds live in one shared module that both sides use. The server rolls with it and the drop table reads from it, so the percentages a player sees are the exact numbers the server uses."
+                               ],
+                      "features":  [
+                                       "Three crates with their own odds, prices and seam glow, on stands that sway slowly and peek their lids open every few seconds",
+                                       "Camera moves run on springs, with shake that builds while the crate charges and a kick when it bursts",
+                                       "The strip ticks each time a card passes the marker, and the ticks drop in pitch as it slows",
+                                       "Near misses get placed right next to lower tier wins, the same way real case openings do it",
+                                       "Space skips the strip by easing straight to the result instead of cutting to it",
+                                       "The knife reveal has a light, rays and sparkles colored by rarity, with Godly cycling through the whole rainbow",
+                                       "Duplicates stack, with a NEW badge on the first copy and an owned count after that",
+                                       "15 knives and 3 crates modeled in Blender, plus 36 sound effects made from scratch for this project"
+                                   ],
+                      "architecture":  [
+                                           "Server: CrateService and GemService validate everything, and DataService owns saving and only sends the fields that changed",
+                                           "Shared: config for rarities, crates, knives and the economy, plus Odds, Spring, Easing, Signal and Trove",
+                                           "Client: one controller per job (Shop, Opening, Stand, Camera, Hud, Prompt, Sound and Data)",
+                                           "Each crate is posed with a single BulkMoveTo per frame instead of welds or tweens on every part",
+                                           "The filler cards on the strip are rolled from the same crate odds, so the strip never shows fake rarities",
+                                           "Opens get rejected from more than 32 studs away, faster than the cooldown, or without enough gems to pay"
+                                       ],
+                      "code":  {
+                                   "filename":  "Rarities.luau",
+                                   "caption":  "The rarity table both sides read from. Frozen at runtime so nothing can edit the tiers.",
+                                   "lines":  [
+                                                 "--!strict",
+                                                 "",
+                                                 "export type Rarity = { -- shape every tier has to follow",
+                                                 "  Name: string,",
+                                                 "  Tier: number, -- higher number means rarer",
+                                                 "  Color: Color3, -- main color used on borders and lights",
+                                                 "  Light: Color3, -- lighter version for text and highlights",
+                                                 "  Dark: Color3, -- darker version for card backgrounds",
+                                                 "  Sound: string, -- name of the reveal sound in SoundService",
+                                                 "  Shake: number, -- how hard the camera shakes on reveal",
+                                                 "  Flash: boolean, -- turns on the screen flash and the banner",
+                                                 "  Rainbow: boolean, -- only godly uses this",
+                                                 "}",
+                                                 "",
+                                                 "local function rgb(r: number, g: number, b: number): Color3 -- just keeps the table below shorter",
+                                                 "  return Color3.fromRGB(r, g, b)",
+                                                 "end",
+                                                 "",
+                                                 "local byName: { [string]: Rarity } = { -- every tier looked up by its name",
+                                                 "  Common = {",
+                                                 "    Name = \"Common\",",
+                                                 "    Tier = 1,",
+                                                 "    Color = rgb(178, 192, 212), -- plain grey so it never steals focus",
+                                                 "    Light = rgb(232, 238, 248),",
+                                                 "    Dark = rgb(46, 52, 66),",
+                                                 "    Sound = \"reveal_common\",",
+                                                 "    Shake = 0.12, -- barely a nudge",
+                                                 "    Flash = false,",
+                                                 "    Rainbow = false,",
+                                                 "  },",
+                                                 "  Uncommon = {",
+                                                 "    Name = \"Uncommon\",",
+                                                 "    Tier = 2,",
+                                                 "    Color = rgb(88, 232, 110),",
+                                                 "    Light = rgb(200, 255, 210),",
+                                                 "    Dark = rgb(20, 72, 36),",
+                                                 "    Sound = \"reveal_uncommon\",",
+                                                 "    Shake = 0.18,",
+                                                 "    Flash = false,",
+                                                 "    Rainbow = false,",
+                                                 "  },",
+                                                 "  Rare = {",
+                                                 "    Name = \"Rare\",",
+                                                 "    Tier = 3,",
+                                                 "    Color = rgb(58, 160, 255),",
+                                                 "    Light = rgb(186, 226, 255),",
+                                                 "    Dark = rgb(14, 46, 104),",
+                                                 "    Sound = \"reveal_rare\",",
+                                                 "    Shake = 0.3,",
+                                                 "    Flash = false, -- rare still has to earn the flash",
+                                                 "    Rainbow = false,",
+                                                 "  },",
+                                                 "  Legendary = {",
+                                                 "    Name = \"Legendary\",",
+                                                 "    Tier = 4,",
+                                                 "    Color = rgb(255, 176, 36),",
+                                                 "    Light = rgb(255, 234, 168),",
+                                                 "    Dark = rgb(104, 54, 6),",
+                                                 "    Sound = \"reveal_legendary\",",
+                                                 "    Shake = 0.55,",
+                                                 "    Flash = true, -- first tier that gets the banner",
+                                                 "    Rainbow = false,",
+                                                 "  },",
+                                                 "  Godly = {",
+                                                 "    Name = \"Godly\",",
+                                                 "    Tier = 5,",
+                                                 "    Color = rgb(255, 58, 106), -- fallback color for anything that cant do rainbow",
+                                                 "    Light = rgb(255, 200, 218),",
+                                                 "    Dark = rgb(96, 8, 36),",
+                                                 "    Sound = \"reveal_godly\",",
+                                                 "    Shake = 0.85, -- as loud as the camera gets",
+                                                 "    Flash = true,",
+                                                 "    Rainbow = true,",
+                                                 "  },",
+                                                 "}",
+                                                 "",
+                                                 "local order = { \"Common\", \"Uncommon\", \"Rare\", \"Legendary\", \"Godly\" } -- lowest to highest for anything that loops tiers",
+                                                 "",
+                                                 "local rainbow = ColorSequence.new({ -- full hue sweep for godly text and glows",
+                                                 "  ColorSequenceKeypoint.new(0.0, rgb(255, 64, 110)),",
+                                                 "  ColorSequenceKeypoint.new(0.2, rgb(255, 170, 40)),",
+                                                 "  ColorSequenceKeypoint.new(0.4, rgb(255, 240, 80)),",
+                                                 "  ColorSequenceKeypoint.new(0.6, rgb(80, 240, 140)),",
+                                                 "  ColorSequenceKeypoint.new(0.8, rgb(70, 170, 255)),",
+                                                 "  ColorSequenceKeypoint.new(1.0, rgb(200, 90, 255)),",
+                                                 "})",
+                                                 "",
+                                                 "local function gradient(rarity: Rarity): ColorSequence -- builds the gradient the ui puts on rarity text",
+                                                 "  if rarity.Rainbow then",
+                                                 "    return rainbow -- godly skips the normal fade",
+                                                 "  end",
+                                                 "  return ColorSequence.new({",
+                                                 "    ColorSequenceKeypoint.new(0, rarity.Light), -- bright at the top",
+                                                 "    ColorSequenceKeypoint.new(0.55, rarity.Color),",
+                                                 "    ColorSequenceKeypoint.new(1, rarity.Color:Lerp(rarity.Dark, 0.35)), -- a little darker at the bottom for depth",
+                                                 "  })",
+                                                 "end",
+                                                 "",
+                                                 "return table.freeze({ -- frozen so nothing can edit the tiers at runtime",
+                                                 "  Order = table.freeze(order),",
+                                                 "  ByName = table.freeze(byName),",
+                                                 "  Rainbow = rainbow,",
+                                                 "  Gradient = gradient,",
+                                                 "})"
                                              ]
                                }
                   }
