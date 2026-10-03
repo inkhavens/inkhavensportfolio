@@ -140,7 +140,7 @@
                                     "length":  "2:25"
                                 },
                       "body":  [
-                                   "A crate opening system where each crate sits on a stand in the world and opens with a full cinematic instead of a menu popup. You walk up, hold E, and the camera moves in on the crate while a panel slides out with the drop table. When you open it, the crate lifts, spins up, slams back down and throws its lid open. Then a strip of knives scrolls across the screen and lands on what you won. The server picks the knife before any of that starts, so the animation only ever shows a result that already exists.",
+                                   "A crate opening system where each crate sits on a stand and opens with a full cinematic instead of a menu popup. You walk up, hold E, and the camera moves in on the crate while a panel slides out with the drop table. When you open it, the crate lifts, spins up, slams back down and throws its lid open. Then a strip of knives scrolls across the screen and lands on what you won. The server picks the knife before any of that starts, so the animation only ever shows a result that already exists.",
                                    "The code is split by who owns what. CrateService takes the request, checks distance, cooldown and balance, then charges the player, rolls and saves. DataService handles profiles with session locking, so two servers never write the same save. On the client, OpeningController runs the sequence in five acts and hands pieces off to smaller parts. CrateRig moves the crate and swings the lid on its hinge, Spinner builds and runs the strip, and RevealStage puts the knife on show.",
                                    "The odds live in one shared module that both sides use. The server rolls with it and the drop table reads from it, so the percentages a player sees are the exact numbers the server uses."
                                ],
@@ -166,8 +166,6 @@
                                    "filename":  "Rarities.luau",
                                    "caption":  "The rarity table both sides read from. Frozen at runtime so nothing can edit the tiers.",
                                    "lines":  [
-                                                 "--!strict",
-                                                 "",
                                                  "export type Rarity = { -- shape every tier has to follow",
                                                  "  Name: string,",
                                                  "  Tier: number, -- higher number means rarer",
